@@ -1,17 +1,4 @@
 """
-3.prometheus_exporter.py  -  Kriteria 4 (Advance / 4 pts)
-=========================================================
-Model serving API (Flask) untuk Telco Churn + Prometheus exporter.
-
-Menyediakan:
-  POST /predict   -> inferensi churn (dipanggil oleh inference.py)
-  GET  /metrics   -> endpoint Prometheus (>= 10 metrik berbeda)
-  GET  /health    -> health check
-
-Menjalankan:
-    python 3.prometheus_exporter.py
-    # default: http://127.0.0.1:8000  (metrics di /metrics)
-
 Metrik yang diekspor (>= 10):
   1. http_requests_total                 (Counter)   - total request per endpoint/method/status
   2. http_request_duration_seconds       (Histogram) - latензi request

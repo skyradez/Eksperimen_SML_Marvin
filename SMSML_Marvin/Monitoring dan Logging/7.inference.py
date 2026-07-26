@@ -1,19 +1,3 @@
-"""
-7.inference.py  -  Kriteria 4
-=============================
-Client inferensi untuk model Telco Churn yang sedang di-serve oleh
-`3.prometheus_exporter.py` (atau `mlflow models serve`).
-
-Skrip ini mengirim sejumlah request prediksi untuk (a) menguji serving dan
-(b) membangkitkan trafik agar metrik Prometheus/Grafana terisi.
-
-Menjalankan:
-    # terminal 1
-    python "3.prometheus_exporter.py"
-    # terminal 2
-    python "7.inference.py" --n 200
-"""
-
 import os
 import time
 import argparse
