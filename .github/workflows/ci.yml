@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: SMSML_Marvin/Eksperimen_SML_Marvin/Workflow-CI/MLProject
+        working-directory: SMSML_Marvin/Workflow-CI/MLProject
 
     steps:
       - name: Checkout repository
