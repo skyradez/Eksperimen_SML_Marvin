@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  MLFLOW_TRACKING_URI: file:./mlruns
+  MLFLOW_TRACKING_URI: file:${{ github.workspace }}/SMSML_Marvin/Workflow-CI/MLProject/mlruns
   DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/telco-churn-model
 
 jobs:
@@ -52,9 +52,18 @@ jobs:
             -P n_estimators=300 \
             -P max_depth=12
 
+          echo "Checking MLflow output..."
+          ls -la
+          find . -maxdepth 3 -type d
+
       - name: Read run_id
         id: runid
         run: |
+          if [ ! -f run_id.txt ]; then
+            echo "run_id.txt not found"
+            exit 1
+          fi
+
           echo "run_id=$(cat run_id.txt)" >> $GITHUB_OUTPUT
           echo "Run ID:"
           cat run_id.txt
@@ -67,7 +76,7 @@ jobs:
             mlruns/**
             artifacts/**
             run_id.txt
-          if-no-files-found: warn
+          if-no-files-found: ignore
 
       - name: Commit artifacts back to repository
         run: |
