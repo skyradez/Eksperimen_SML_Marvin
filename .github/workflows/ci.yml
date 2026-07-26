@@ -32,7 +32,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install \
-            mlflow==2.19.0 \
+            mlflow==2.21.3 \
             scikit-learn==1.7.2 \
             pandas==2.3.3 \
             numpy==2.2.6 \
@@ -90,8 +90,7 @@ jobs:
         run: |
           mlflow models build-docker \
             --model-uri "runs:/${{ steps.runid.outputs.run_id }}/model" \
-            --name "${{ env.DOCKER_IMAGE }}" \
-            --enable-mlserver
+            --name "${{ env.DOCKER_IMAGE }}"
 
       - name: Push Docker image
         run: |
