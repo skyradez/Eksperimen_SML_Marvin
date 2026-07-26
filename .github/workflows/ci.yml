@@ -90,7 +90,8 @@ jobs:
         run: |
           mlflow models build-docker \
             --model-uri "runs:/${{ steps.runid.outputs.run_id }}/model" \
-            --name "${{ env.DOCKER_IMAGE }}"
+            --name "${{ env.DOCKER_IMAGE }}" \
+            --enable-mlserver
 
       - name: Push Docker image
         run: |
