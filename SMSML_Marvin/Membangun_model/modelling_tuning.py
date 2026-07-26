@@ -56,19 +56,19 @@ def load_split(data_dir=DATA_DIR):
 def setup_tracking(use_dagshub: bool, experiment: str):
     if use_dagshub:
         import dagshub
-        owner = os.environ.get("DAGSHUB_REPO_OWNER", "marvinluckianto5")
-        repo = os.environ.get("DAGSHUB_REPO_NAME", "Eksperimen_SML_Marvin")
-        # dagshub.init mengarahkan MLflow ke tracking server online DagsHub.
-        dagshub.init(repo_owner=owner, repo_name=repo, mlflow=True)
-        print(f"[tracking] DagsHub online: {owner}/{repo}")
+
+        dagshub.init(
+            repo_owner="marvinluckianto5",
+            repo_name="Eksperimen_SML_Marvin",
+            mlflow=True
+        )
+
+        print("[tracking] DagsHub enabled")
+
     else:
-        uri = os.environ.get("MLFLOW_TRACKING_URI", "https://dagshub.com/marvinluckianto5/Eksperimen_SML_Marvin.mlflow")
-        try:
-            mlflow.set_tracking_uri(uri)
-            print(f"[tracking] Local MLflow: {uri}")
-        except Exception:
-            mlflow.set_tracking_uri("file:./mlruns")
-            print("[tracking] Fallback: file:./mlruns")
+        mlflow.set_tracking_uri("http://127.0.0.1:5000")
+        print("[tracking] Local MLflow")
+
     mlflow.set_experiment(experiment)
 
 
