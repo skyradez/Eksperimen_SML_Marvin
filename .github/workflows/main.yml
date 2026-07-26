@@ -2,8 +2,7 @@ name: Automated Data Preprocessing
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing/**"
       - "SMSML_Marvin/Eksperimen_SML_Marvin/telco_churn_raw/**"
@@ -14,48 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: |
+      - run: |
           python -m pip install --upgrade pip
           pip install pandas numpy scikit-learn joblib
 
-      - name: Show repository structure
+      - name: Debug
         run: |
           pwd
-          echo "=========================="
-          find . -maxdepth 4
-          echo "=========================="
+          find .
 
-      - name: Run automated preprocessing
+      - name: Run preprocessing
         working-directory: SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing
         run: |
           python automate_Marvin.py \
             --input ../telco_churn_raw/telco_churn_raw.csv \
             --output telco_churn_preprocessing
 
-      - name: Commit refreshed processed dataset
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing/telco_churn_preprocessing
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "CI: refresh preprocessed dataset [skip ci]"
-            git push
-          fi
-
-      - name: Upload processed dataset
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: telco_churn_preprocessing
