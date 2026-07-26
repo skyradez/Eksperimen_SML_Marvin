@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: SMSML_Marvin/Workflow-CI/MLProject
+        working-directory: SMSML_Marvin/Eksperimen_SML_Marvin/Workflow-CI/MLProject
 
     steps:
       - name: Checkout repository
@@ -43,7 +43,7 @@ jobs:
         run: |
           pwd
           ls -la
-          find . -maxdepth 2
+          find . -maxdepth 2 -type f
 
       # Retrain model using MLflow Project
       - name: Run MLflow Project
@@ -61,14 +61,15 @@ jobs:
           echo "Run ID:"
           cat run_id.txt
 
-      # Upload artifacts
+      # Upload MLflow artifacts
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: mlflow-artifacts
           path: |
-            SMSML_Marvin/Workflow-CI/MLProject/mlruns/**
-            SMSML_Marvin/Workflow-CI/MLProject/artifacts/**
+            mlruns/**
+            artifacts/**
+            run_id.txt
           if-no-files-found: warn
 
       # Commit generated artifacts
