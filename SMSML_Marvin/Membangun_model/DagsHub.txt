@@ -2,15 +2,7 @@ Tautan DagsHub (MLflow Tracking online) - Kriteria 2 Advance
 ============================================================
 
 Repository DagsHub:
-https://dagshub.com/<username-dagshub-anda>/SMSML_Marvin
+https://dagshub.com/marvinluckianto5/Eksperimen_SML_Marvin
 
 MLflow Tracking UI (online):
-https://dagshub.com/<username-dagshub-anda>/SMSML_Marvin.mlflow
-
-Catatan:
-- Ganti <username-dagshub-anda> dengan username akun DagsHub Anda.
-- File modelling_tuning.py sudah mendukung tracking online via flag --use-dagshub
-  dan membaca env: DAGSHUB_REPO_OWNER, DAGSHUB_REPO_NAME, DAGSHUB_TOKEN.
-- Model dilatih dengan hyperparameter tuning (GridSearchCV), manual logging,
-  serta 5 artefak tambahan (confusion_matrix, roc_curve, feature_importance,
-  classification_report, metric_summary) di luar cakupan autolog.
+https://dagshub.com/marvinluckianto5/Eksperimen_SML_Marvin.mlflow
