@@ -1,0 +1,17 @@
+Kriteria 1 - Tautan Repository GitHub (Eksperimen)
+==================================================
+
+https://github.com/<username-github-anda>/Eksperimen_SML_Marvin
+
+Struktur repository:
+Eksperimen_SML_Marvin
+├── .github/workflows/preprocessing.yml   (Advance - otomatisasi GitHub Actions)
+├── telco_churn_raw/telco_churn_raw.csv
+└── preprocessing/
+    ├── Eksperimen_Marvin.ipynb
+    ├── automate_Marvin.py
+    └── telco_churn_preprocessing/
+
+Catatan:
+- Ganti <username-github-anda> dengan username GitHub Anda.
+- Pastikan visibilitas repository PUBLIC.

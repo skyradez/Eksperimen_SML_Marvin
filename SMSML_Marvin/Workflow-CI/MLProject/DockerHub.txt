@@ -1,0 +1,18 @@
+Tautan Docker Hub - Kriteria 3 Advance
+======================================
+
+Docker image hasil `mlflow models build-docker` yang dipush oleh workflow CI:
+
+https://hub.docker.com/r/<username-dockerhub-anda>/telco-churn-model
+
+Pull & jalankan:
+    docker pull <username-dockerhub-anda>/telco-churn-model:latest
+    docker run -p 5001:8080 <username-dockerhub-anda>/telco-churn-model:latest
+
+Endpoint inference (setelah container jalan):
+    POST http://127.0.0.1:5001/invocations
+
+Catatan:
+- Ganti <username-dockerhub-anda> dengan username Docker Hub Anda.
+- Secrets yang wajib diset di GitHub repo (Settings > Secrets and variables > Actions):
+    DOCKERHUB_USERNAME, DOCKERHUB_TOKEN

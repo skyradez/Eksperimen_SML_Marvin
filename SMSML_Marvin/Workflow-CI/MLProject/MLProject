@@ -1,0 +1,17 @@
+name: telco_churn_ci
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_dir: {type: string, default: "telco_churn_preprocessing"}
+      n_estimators: {type: int, default: 200}
+      max_depth: {type: int, default: 12}
+      min_samples_split: {type: int, default: 2}
+    command: >-
+      python modelling.py
+      --data_dir {data_dir}
+      --n_estimators {n_estimators}
+      --max_depth {max_depth}
+      --min_samples_split {min_samples_split}

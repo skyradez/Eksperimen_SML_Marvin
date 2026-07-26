@@ -1,0 +1,22 @@
+Kriteria 3 - Tautan Repository GitHub (Workflow CI)
+===================================================
+
+https://github.com/<username-github-anda>/Workflow-CI
+
+Struktur repository:
+Workflow-CI
+├── .github/workflows/ci.yml
+└── MLProject/
+    ├── MLProject
+    ├── conda.yaml
+    ├── modelling.py
+    ├── DockerHub.txt
+    └── telco_churn_preprocessing/
+
+Tautan Docker Hub (Advance):
+https://hub.docker.com/r/<username-dockerhub-anda>/telco-churn-model
+
+Catatan:
+- Ganti <username-github-anda> dan <username-dockerhub-anda>.
+- Pastikan visibilitas repository PUBLIC.
+- Set secrets: DOCKERHUB_USERNAME, DOCKERHUB_TOKEN.

@@ -1,0 +1,36 @@
+# alert_rules.yml - Kriteria 4 Advance (3 alerting)
+# Direferensikan oleh prometheus.yml (rule_files). Dapat pula direplikasi
+# sebagai alert rules langsung di Grafana.
+
+groups:
+  - name: telco_churn_model_alerts
+    rules:
+      # 1) Latензi inferensi model terlalu tinggi
+      - alert: HighInferenceLatency
+        expr: histogram_quantile(0.95, rate(model_inference_duration_seconds_bucket[1m])) > 0.5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latензi inferensi p95 > 0.5s"
+          description: "p95 durasi inferensi model melebihi 0.5 detik selama 1 menit."
+
+      # 2) Error rate prediksi tinggi
+      - alert: HighPredictionErrorRate
+        expr: rate(model_prediction_errors_total[1m]) > 0.1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error rate prediksi tinggi"
+          description: "Model menghasilkan error inferensi > 0.1/s selama 1 menit."
+
+      # 3) Penggunaan CPU host tinggi
+      - alert: HighCpuUsage
+        expr: system_cpu_usage_percent > 85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU usage > 85%"
+          description: "Penggunaan CPU host melebihi 85% selama 2 menit."

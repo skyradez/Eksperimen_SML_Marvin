@@ -1,0 +1,13 @@
+name: telco_churn_ci
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.7
+  - pip
+  - pip:
+      - mlflow==2.19.0
+      - scikit-learn==1.7.2
+      - pandas==2.3.3
+      - numpy==2.2.6
+      - matplotlib==3.9.2
+      - joblib==1.4.2
