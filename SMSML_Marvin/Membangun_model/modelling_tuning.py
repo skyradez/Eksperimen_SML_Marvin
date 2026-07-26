@@ -57,7 +57,7 @@ def setup_tracking(use_dagshub: bool, experiment: str):
     if use_dagshub:
         import dagshub
         owner = os.environ.get("DAGSHUB_REPO_OWNER", "marvinluckianto5")
-        repo = os.environ.get("DAGSHUB_REPO_NAME", "SMSML_Marvin")
+        repo = os.environ.get("DAGSHUB_REPO_NAME", "Eksperimen_SML_Marvin")
         # dagshub.init mengarahkan MLflow ke tracking server online DagsHub.
         dagshub.init(repo_owner=owner, repo_name=repo, mlflow=True)
         print(f"[tracking] DagsHub online: {owner}/{repo}")
