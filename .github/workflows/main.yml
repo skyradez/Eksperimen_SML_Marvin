@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "SMSML_Marvin/telco_churn_raw/**"
-      - "SMSML_Marvin/preprocessing/**"
+      - "SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing/**"
+      - "SMSML_Marvin/Eksperimen_SML_Marvin/telco_churn_raw/**"
   workflow_dispatch:
 
 jobs:
@@ -27,14 +27,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy scikit-learn joblib
 
-      # Optional: remove after confirming everything works
       - name: Show repository structure
         run: |
           pwd
-          ls -R
+          echo "=========================="
+          find . -maxdepth 4
+          echo "=========================="
 
       - name: Run automated preprocessing
-        working-directory: SMSML_Marvin/preprocessing
+        working-directory: SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing
         run: |
           python automate_Marvin.py \
             --input ../telco_churn_raw/telco_churn_raw.csv \
@@ -42,18 +43,20 @@ jobs:
 
       - name: Commit refreshed processed dataset
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add SMSML_Marvin/preprocessing/telco_churn_preprocessing
+          git add SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing/telco_churn_preprocessing
 
-          git diff --cached --quiet || (
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
             git commit -m "CI: refresh preprocessed dataset [skip ci]"
             git push
-          )
+          fi
 
       - name: Upload processed dataset
         uses: actions/upload-artifact@v4
         with:
           name: telco_churn_preprocessing
-          path: SMSML_Marvin/preprocessing/telco_churn_preprocessing/
+          path: SMSML_Marvin/Eksperimen_SML_Marvin/preprocessing/telco_churn_preprocessing
