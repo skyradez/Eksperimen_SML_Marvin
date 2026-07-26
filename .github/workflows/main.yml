@@ -28,7 +28,7 @@ jobs:
           pip install pandas numpy scikit-learn joblib
 
       - name: Run automated preprocessing
-        working-directory: preprocessing
+        working-directory: SMSML_Marvin/preprocessing
         run: |
           python automate_Marvin.py \
             --input ../telco_churn_raw/telco_churn_raw.csv \
