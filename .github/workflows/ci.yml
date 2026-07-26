@@ -2,7 +2,8 @@ name: MLflow CI - Retrain & Build Docker
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -12,65 +13,92 @@ env:
 jobs:
   retrain-and-build:
     runs-on: ubuntu-latest
+
     defaults:
       run:
-        working-directory: MLProject
+        shell: bash
+        working-directory: SMSML_Marvin/Workflow-CI/MLProject
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12.7
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.7"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mlflow==2.19.0 scikit-learn==1.7.2 pandas==2.3.3 numpy==2.2.6 matplotlib==3.9.2 joblib==1.4.2
+          pip install \
+            mlflow==2.19.0 \
+            scikit-learn==1.7.2 \
+            pandas==2.3.3 \
+            numpy==2.2.6 \
+            matplotlib==3.9.2 \
+            joblib==1.4.2
 
-      # ---- Retrain via MLflow Project ----
-      - name: Run MLflow Project (retrain)
+      - name: Show project structure
         run: |
-          mlflow run . --env-manager local \
-            -P n_estimators=300 -P max_depth=12
+          pwd
+          ls -la
+          find . -maxdepth 2
 
-      - name: Resolve latest run id
+      # Retrain model using MLflow Project
+      - name: Run MLflow Project
+        run: |
+          mlflow run . \
+            --env-manager local \
+            -P n_estimators=300 \
+            -P max_depth=12
+
+      # Read generated run id
+      - name: Read run_id
         id: runid
-        run: echo "run_id=$(cat run_id.txt)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "run_id=$(cat run_id.txt)" >> $GITHUB_OUTPUT
+          echo "Run ID:"
+          cat run_id.txt
 
-      # ---- Skilled: simpan artefak ke repositori (GitHub) ----
-      - name: Upload model artifacts (GitHub artifact)
+      # Upload artifacts
+      - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mlflow-model
+          name: mlflow-artifacts
           path: |
-            MLProject/mlruns/**
-            MLProject/artifacts/**
+            SMSML_Marvin/Workflow-CI/MLProject/mlruns/**
+            SMSML_Marvin/Workflow-CI/MLProject/artifacts/**
+          if-no-files-found: warn
 
-      - name: Commit artifacts back to repo
+      # Commit generated artifacts
+      - name: Commit artifacts back to repository
         run: |
-          git config --global user.name  "github-actions[bot]"
+          git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f mlruns artifacts run_id.txt
-          git commit -m "CI: retrain model & store artifacts [skip ci]" || echo "No changes"
+
+          git add mlruns artifacts run_id.txt || true
+
+          git commit -m "CI: retrain model [skip ci]" || echo "Nothing to commit"
+
           git push || echo "Nothing to push"
 
-      # ---- Advance: build & push Docker image ----
-      - name: Log in to Docker Hub
+      # Login Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build MLflow model Docker image
+      # Build Docker image from MLflow model
+      - name: Build Docker image
         run: |
           mlflow models build-docker \
             --model-uri "runs:/${{ steps.runid.outputs.run_id }}/model" \
-            --name "$DOCKER_IMAGE"
+            --name "${{ env.DOCKER_IMAGE }}"
 
-      - name: Push image to Docker Hub
+      # Push Docker image
+      - name: Push Docker image
         run: |
-          docker tag "$DOCKER_IMAGE" "$DOCKER_IMAGE:latest"
-          docker push "$DOCKER_IMAGE:latest"
+          docker tag "${{ env.DOCKER_IMAGE }}" "${{ env.DOCKER_IMAGE }}:latest"
+          docker push "${{ env.DOCKER_IMAGE }}:latest"
