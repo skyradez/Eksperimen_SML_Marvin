@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/368762487833082912
+creation_time: 1785037472171
+experiment_id: '368762487833082912'
+last_update_time: 1785037472171
+lifecycle_stage: active
+name: telco_churn_basic

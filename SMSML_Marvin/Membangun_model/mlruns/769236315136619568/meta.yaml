@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/769236315136619568
+creation_time: 1785037491333
+experiment_id: '769236315136619568'
+last_update_time: 1785037491333
+lifecycle_stage: active
+name: telco_churn_tuning

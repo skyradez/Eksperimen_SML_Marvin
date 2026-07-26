@@ -1,0 +1,16 @@
+{
+  "best_params": {
+    "max_depth": 12,
+    "min_samples_split": 5,
+    "n_estimators": 300
+  },
+  "metrics": {
+    "accuracy": 0.7544357700496807,
+    "precision": 0.6997885835095138,
+    "recall": 0.6186915887850467,
+    "f1_score": 0.6567460317460317,
+    "roc_auc": 0.8252849718770718,
+    "log_loss": 0.49917992159171193,
+    "best_cv_f1": 0.6759234201647116
+  }
+}

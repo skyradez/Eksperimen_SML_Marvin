@@ -1,0 +1,32 @@
+digest: c2e924c7
+name: dataset
+profile: '{"num_rows": 5634, "num_elements": 169020}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "SeniorCitizen", "required":
+  true}, {"type": "long", "name": "Partner", "required": true}, {"type": "long", "name":
+  "Dependents", "required": true}, {"type": "double", "name": "tenure", "required":
+  true}, {"type": "long", "name": "PhoneService", "required": true}, {"type": "long",
+  "name": "PaperlessBilling", "required": true}, {"type": "double", "name": "MonthlyCharges",
+  "required": true}, {"type": "double", "name": "TotalCharges", "required": true},
+  {"type": "long", "name": "gender_Male", "required": true}, {"type": "long", "name":
+  "MultipleLines_No phone service", "required": true}, {"type": "long", "name": "MultipleLines_Yes",
+  "required": true}, {"type": "long", "name": "InternetService_Fiber optic", "required":
+  true}, {"type": "long", "name": "InternetService_No", "required": true}, {"type":
+  "long", "name": "OnlineSecurity_No internet service", "required": true}, {"type":
+  "long", "name": "OnlineSecurity_Yes", "required": true}, {"type": "long", "name":
+  "OnlineBackup_No internet service", "required": true}, {"type": "long", "name":
+  "OnlineBackup_Yes", "required": true}, {"type": "long", "name": "DeviceProtection_No
+  internet service", "required": true}, {"type": "long", "name": "DeviceProtection_Yes",
+  "required": true}, {"type": "long", "name": "TechSupport_No internet service", "required":
+  true}, {"type": "long", "name": "TechSupport_Yes", "required": true}, {"type": "long",
+  "name": "StreamingTV_No internet service", "required": true}, {"type": "long", "name":
+  "StreamingTV_Yes", "required": true}, {"type": "long", "name": "StreamingMovies_No
+  internet service", "required": true}, {"type": "long", "name": "StreamingMovies_Yes",
+  "required": true}, {"type": "long", "name": "Contract_One year", "required": true},
+  {"type": "long", "name": "Contract_Two year", "required": true}, {"type": "long",
+  "name": "PaymentMethod_Credit card (automatic)", "required": true}, {"type": "long",
+  "name": "PaymentMethod_Electronic check", "required": true}, {"type": "long", "name":
+  "PaymentMethod_Mailed check", "required": true}]}'
+source: '{"tags": {"mlflow.user": "ASUS", "mlflow.source.name": "c:/Users/ASUS/Desktop/Eksperimen_SML_Marvin/SMSML_Marvin/Membangun_model/modelling.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "ed47ea0ea8a077f43821f93d87157e53b447641e",
+  "mlflow.source.git.branch": "main", "mlflow.source.git.repoURL": "https://github.com/skyradez/Eksperimen_SML_Marvin.git"}}'
+source_type: code
