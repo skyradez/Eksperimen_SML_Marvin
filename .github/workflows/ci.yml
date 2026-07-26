@@ -45,7 +45,6 @@ jobs:
           ls -la
           find . -maxdepth 2 -type f
 
-      # Retrain model using MLflow Project
       - name: Run MLflow Project
         run: |
           mlflow run . \
@@ -53,7 +52,6 @@ jobs:
             -P n_estimators=300 \
             -P max_depth=12
 
-      # Read generated run id
       - name: Read run_id
         id: runid
         run: |
@@ -61,7 +59,6 @@ jobs:
           echo "Run ID:"
           cat run_id.txt
 
-      # Upload MLflow artifacts
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -72,7 +69,6 @@ jobs:
             run_id.txt
           if-no-files-found: warn
 
-      # Commit generated artifacts
       - name: Commit artifacts back to repository
         run: |
           git config --global user.name "github-actions[bot]"
@@ -84,21 +80,18 @@ jobs:
 
           git push || echo "Nothing to push"
 
-      # Login Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build Docker image from MLflow model
       - name: Build Docker image
         run: |
           mlflow models build-docker \
             --model-uri "runs:/${{ steps.runid.outputs.run_id }}/model" \
             --name "${{ env.DOCKER_IMAGE }}"
 
-      # Push Docker image
       - name: Push Docker image
         run: |
           docker tag "${{ env.DOCKER_IMAGE }}" "${{ env.DOCKER_IMAGE }}:latest"
