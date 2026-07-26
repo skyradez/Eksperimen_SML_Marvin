@@ -62,7 +62,7 @@ def setup_tracking(use_dagshub: bool, experiment: str):
         dagshub.init(repo_owner=owner, repo_name=repo, mlflow=True)
         print(f"[tracking] DagsHub online: {owner}/{repo}")
     else:
-        uri = os.environ.get("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000")
+        uri = os.environ.get("MLFLOW_TRACKING_URI", "https://dagshub.com/marvinluckianto5/Eksperimen_SML_Marvin.mlflow")
         try:
             mlflow.set_tracking_uri(uri)
             print(f"[tracking] Local MLflow: {uri}")
