@@ -1,7 +1,7 @@
 Kriteria 1 - Tautan Repository GitHub (Eksperimen)
 ==================================================
 
-https://github.com/<username-github-anda>/Eksperimen_SML_Marvin
+https://github.com/skyradez/Eksperimen_SML_Marvin/
 
 Struktur repository:
 Eksperimen_SML_Marvin
@@ -11,7 +11,3 @@ Eksperimen_SML_Marvin
     ├── Eksperimen_Marvin.ipynb
     ├── automate_Marvin.py
     └── telco_churn_preprocessing/
-
-Catatan:
-- Ganti <username-github-anda> dengan username GitHub Anda.
-- Pastikan visibilitas repository PUBLIC.
